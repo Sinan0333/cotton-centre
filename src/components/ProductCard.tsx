@@ -43,7 +43,7 @@ export function ProductCard({ product }: { product: Partial<IProduct> & { _id?: 
         </Link>
         <div className="flex items-center justify-between mt-auto">
           <div className="font-extrabold text-lg md:text-xl text-gray-900 tracking-tight">
-            ₹{product.price?.toFixed(2)}
+            ₹{product.price}
           </div>
         </div>
       </CardContent>

@@ -118,7 +118,7 @@ export function AdminProductGrid({ products, filterControls }: AdminProductGridP
                </div>
                
                <div className="flex items-end justify-between mt-auto pt-4 border-t border-gray-100">
-                  <div className="font-bold text-xl">₹{product.price?.toFixed(2)}</div>
+                  <div className="font-bold text-xl">₹{product.price}</div>
                   <div className="flex gap-2">
                     <Link href={`/admin/products/${product._id}/edit`} className="inline-flex items-center justify-center p-2 bg-gray-100 text-gray-700 hover:bg-black hover:text-white rounded-xl transition-colors" aria-label="Edit Product">
                       <Edit className="h-4 w-4" />

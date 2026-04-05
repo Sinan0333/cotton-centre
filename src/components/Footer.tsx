@@ -13,7 +13,7 @@ export function Footer() {
                 alt="Logo" 
                 className="h-8 w-8 object-contain brightness-0 invert" 
               />
-              <div className="font-extrabold text-2xl tracking-tighter">The Cotton Centre</div>
+              <div className="font-extrabold text-2xl tracking-tighter">Cotton Centre</div>
             </div>
             <p className="text-sm text-gray-400 font-light leading-relaxed">
               Premium fashion essentials designed for the modern wardrobe. Bringing you unmatched comfort and style everyday.
