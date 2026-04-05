@@ -14,9 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Cotton Center | Premium Clothing",
+  title: "The Cotton Centre | Premium Clothing",
   description: "Premium fashion essentials for men, women, and kids.",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/Logo.png",
+    apple: "/Logo.png",
+  },
 };
 
 export default function RootLayout({

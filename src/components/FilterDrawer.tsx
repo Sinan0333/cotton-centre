@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { CATEGORIES } from "@/lib/constants";
 
 export function FilterDrawer() {
   const router = useRouter();
@@ -70,18 +71,18 @@ export function FilterDrawer() {
           <div className="space-y-4">
             <Label className="text-sm font-bold text-gray-800 tracking-wide uppercase">Categories</Label>
             <div className="flex flex-wrap gap-3">
-              {["Men", "Women", "Kids"].map((cat) => (
+              {CATEGORIES.map((cat) => (
                 <button 
-                  key={cat} 
-                  type="button"
-                  onClick={() => setCategory(category === cat ? "" : cat)}
-                  className={`px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
-                    category === cat 
-                      ? "bg-black text-white shadow-md scale-105" 
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
+                   key={cat.value} 
+                   type="button"
+                   onClick={() => setCategory(category === cat.value ? "" : cat.value)}
+                   className={`px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
+                     category === cat.value 
+                       ? "bg-black text-white shadow-md scale-105" 
+                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                   }`}
                 >
-                  {cat}
+                  {cat.label}
                 </button>
               ))}
             </div>

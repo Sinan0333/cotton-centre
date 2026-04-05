@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { IProduct } from "@/models/Product";
 import { Card, CardContent } from "@/components/ui/card";
 import { X, ImagePlus, Loader2 } from "lucide-react";
+import { CATEGORIES } from "@/lib/constants";
 
 export function ProductForm({ product }: { product?: Partial<IProduct> & { _id?: string } }) {
   const router = useRouter();
@@ -19,7 +20,7 @@ export function ProductForm({ product }: { product?: Partial<IProduct> & { _id?:
     name: product?.name || "",
     description: product?.description || "",
     price: product?.price?.toString() || "",
-    category: product?.category || "Men",
+    category: product?.category || CATEGORIES[0].value,
     stock: product?.stock?.toString() || "0",
     sizes: product?.sizes?.join(", ") || "",
     colors: product?.colors?.join(", ") || "",
@@ -122,9 +123,9 @@ export function ProductForm({ product }: { product?: Partial<IProduct> & { _id?:
                 className="flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
                 required
               >
-                <option value="Men">Men</option>
-                <option value="Women">Women</option>
-                <option value="Kids">Kids</option>
+                {CATEGORIES.map((cat) => (
+                  <option key={cat.value} value={cat.value}>{cat.label}</option>
+                ))}
               </select>
             </div>
             
@@ -139,8 +140,8 @@ export function ProductForm({ product }: { product?: Partial<IProduct> & { _id?:
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description *</Label>
-            <Textarea id="description" name="description" rows={4} value={formData.description} onChange={handleChange} required />
+            <Label htmlFor="description">Description</Label>
+            <Textarea id="description" name="description" rows={4} value={formData.description} onChange={handleChange} />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

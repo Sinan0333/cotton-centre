@@ -16,7 +16,7 @@ export function ShareButton({ title }: ShareButtonProps) {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `Check out ${title} at The Cotton Center`,
+          title: `Check out ${title} at The Cotton Centre`,
           url: url,
         });
       } catch (err) {

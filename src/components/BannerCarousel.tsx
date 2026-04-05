@@ -29,7 +29,7 @@ const slides = [
     description: "Comfortable and durable clothing for the little ones.",
     cta: "Shop Kids",
     link: "/shop?category=Kids",
-    image: "https://images.unsplash.com/photo-1514090225633-8ad4a8618e7c?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?q=80&w=2070&auto=format&fit=crop",
   }
 ];
 

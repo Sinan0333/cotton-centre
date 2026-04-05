@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Download } from "lucide-react";
 
 export function InstallButton() {
@@ -79,8 +80,8 @@ export function InstallButton() {
       </button>
 
       {/* First-time Visitor Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      {showModal && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4" style={{ position: 'fixed' }}>
           <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl animate-in zoom-in-95 duration-300 relative border border-gray-100">
             <div className="flex justify-center mb-6">
               <div className="bg-black text-white p-4 rounded-2xl shadow-lg">
@@ -89,7 +90,7 @@ export function InstallButton() {
             </div>
             <h3 className="text-2xl font-extrabold text-center tracking-tight mb-2">Get the App</h3>
             <p className="text-center text-gray-500 mb-8 font-medium">
-              Install The Cotton Center on your device for a fast, native shopping experience.
+              Install The Cotton Centre on your device for a fast, native shopping experience.
             </p>
             <div className="flex flex-col gap-3">
               <button
@@ -106,7 +107,8 @@ export function InstallButton() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

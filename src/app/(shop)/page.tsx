@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 async function LatestProducts() {
   await connectToDatabase();
-  const products = await Product.find({}).sort({ createdAt: -1 }).limit(4).lean();
+  const products = await Product.find({}).sort({ createdAt: -1 }).limit(6).lean();
   
   return <ProductGrid products={JSON.parse(JSON.stringify(products))} />;
 }
@@ -48,7 +48,7 @@ export default function Home() {
                </div>
             </Link>
             <Link href="/shop?category=Kids" className="group relative h-72 md:h-96 overflow-hidden rounded-3xl items-center justify-center flex shadow-md">
-               <Image src="https://images.unsplash.com/photo-1519241047957-be31d7379a5d?q=80&w=1740&auto=format&fit=crop" priority alt="Kids Collection" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+               <Image src="https://images.unsplash.com/photo-1503919005314-30d93d07d823?q=80&w=1740&auto=format&fit=crop" priority alt="Kids Collection" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90 z-10"></div>
                <div className="absolute bottom-8 left-8 z-20 flex flex-col items-start transition-transform duration-500 group-hover:-translate-y-2">
                  <span className="text-3xl font-extrabold text-white tracking-tight mb-2">Kids</span>
@@ -74,6 +74,29 @@ export default function Home() {
           <Suspense fallback={<div className="text-sm text-gray-500 text-center py-24 animate-pulse">Curating latest pieces...</div>}>
             <LatestProducts />
           </Suspense>
+
+          <div className="mt-16 flex justify-center">
+            <Link 
+              href="/shop" 
+              className="inline-flex items-center justify-center px-10 py-4 bg-black text-white text-sm font-bold tracking-widest uppercase rounded-full hover:bg-gray-900 hover:text-white transition-all shadow-xl hover:shadow-2xl active:scale-95 group"
+            >
+              Load More
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="16" 
+                height="16" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="3" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className="ml-2 group-hover:translate-y-1 transition-transform"
+              >
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

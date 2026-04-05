@@ -1,4 +1,4 @@
-# The Cotton Center - Fashion E-commerce
+# The Cotton Centre - Fashion E-commerce
 
 A mobile-first, light-mode only, full-stack fashion e-commerce application built with Next.js App Router, Tailwind CSS, Shadcn UI, and MongoDB.
 

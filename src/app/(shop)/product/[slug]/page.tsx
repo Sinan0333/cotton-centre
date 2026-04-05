@@ -85,9 +85,11 @@ async function ProductContent({ matchSlug }: { matchSlug: string }) {
             ₹{product.price?.toFixed(2)}
           </div>
           
-          <div className="prose prose-sm text-gray-600 mb-8 whitespace-pre-wrap">
-            {product.description}
-          </div>
+          {product.description && (
+            <div className="prose prose-sm text-gray-600 mb-8 whitespace-pre-wrap">
+              {product.description}
+            </div>
+          )}
 
           <div className="space-y-6 mb-8">
             {/* Sizes */}

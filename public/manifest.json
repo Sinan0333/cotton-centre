@@ -1,6 +1,6 @@
 {
-  "name": "The Cotton Center",
-  "short_name": "Cotton Ctr",
+  "name": "Cotton Centre",
+  "short_name": "CC",
   "description": "Premium fashion essentials for men, women, and kids.",
   "start_url": "/",
   "display": "standalone",
@@ -8,9 +8,9 @@
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "/globe.svg",
+      "src": "/Logo.png",
       "sizes": "192x192 512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]

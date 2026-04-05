@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/mongodb';
 import Product from '@/models/Product';
 import { NextRequest } from 'next/server';
+import { deleteCloudinaryImage } from '@/lib/cloudinary';
 
 export async function PUT(request: NextRequest, props: { params: Promise<{ id: string }> }) {
   try {
@@ -26,14 +27,25 @@ export async function DELETE(request: NextRequest, props: { params: Promise<{ id
     const resolvedParams = await Promise.resolve(props.params);
     await connectToDatabase();
     
-    const product = await Product.findByIdAndDelete(resolvedParams.id);
+    // Find product first to get image URLs
+    const product = await Product.findById(resolvedParams.id);
     
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
+
+    // Delete images from Cloudinary if they exist
+    if (product.images && product.images.length > 0) {
+      const deletePromises = product.images.map((imageUrl: string) => deleteCloudinaryImage(imageUrl));
+      await Promise.allSettled(deletePromises);
+    }
+    
+    // Delete product from MongoDB
+    await Product.findByIdAndDelete(resolvedParams.id);
     
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error('Delete error:', error);
     return NextResponse.json({ error: 'Failed to delete product' }, { status: 500 });
   }
 }

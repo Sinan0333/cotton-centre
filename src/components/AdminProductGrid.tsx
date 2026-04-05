@@ -112,7 +112,9 @@ export function AdminProductGrid({ products, filterControls }: AdminProductGridP
             <div className="p-5 flex-1 flex flex-col justify-between">
                <div>
                   <h3 className="font-extrabold text-lg truncate tracking-tight">{product.name}</h3>
-                  <p className="text-gray-500 text-sm mt-1 mb-4 line-clamp-2">{product.description}</p>
+                  {product.description && (
+                    <p className="text-gray-500 text-sm mt-1 mb-4 line-clamp-2">{product.description}</p>
+                  )}
                </div>
                
                <div className="flex items-end justify-between mt-auto pt-4 border-t border-gray-100">

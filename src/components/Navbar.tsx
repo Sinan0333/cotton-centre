@@ -26,11 +26,13 @@ export function Navbar({ isAdmin = false }: { isAdmin?: boolean }) {
           
           <div className="flex items-center">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="bg-black text-white p-2 rounded-xl group-hover:scale-105 transition-transform duration-300 shadow-md hidden sm:block">
-                <ShoppingBag className="h-5 w-5" />
-              </div>
-              <span className="font-extrabold text-2xl tracking-tighter hidden sm:inline-block">The Cotton Center</span>
+            <Link href="/" className="flex items-center gap-3 group">
+              <img 
+                src="/Logo.png" 
+                alt="The Cotton Centre Logo" 
+                className="h-10 w-10 object-contain group-hover:scale-105 transition-transform duration-300" 
+              />
+              <span className="font-extrabold text-2xl tracking-tighter hidden sm:inline-block">The Cotton Centre</span>
               <span className="font-extrabold text-2xl tracking-tighter sm:hidden">CC.</span>
             </Link>
           </div>
