@@ -32,7 +32,7 @@ export function Navbar({ isAdmin = false }: { isAdmin?: boolean }) {
                 alt="The Cotton Centre Logo" 
                 className="h-10 w-10 object-contain group-hover:scale-105 transition-transform duration-300" 
               />
-              <span className="font-extrabold text-xl md:text-2xl tracking-tighter">The Cotton Centre</span>
+              <span className="font-extrabold text-xl md:text-2xl tracking-tighter">Cotton Centre</span>
             </Link>
           </div>
 
