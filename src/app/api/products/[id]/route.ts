@@ -3,7 +3,7 @@ import connectToDatabase from '@/lib/mongodb';
 import Product from '@/models/Product';
 import { NextRequest } from 'next/server';
 
-export async function PUT(request: NextRequest, props: { params: { id: string } }) {
+export async function PUT(request: NextRequest, props: { params: Promise<{ id: string }> }) {
   try {
     const resolvedParams = await Promise.resolve(props.params);
     await connectToDatabase();
@@ -21,7 +21,7 @@ export async function PUT(request: NextRequest, props: { params: { id: string } 
   }
 }
 
-export async function DELETE(request: NextRequest, props: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, props: { params: Promise<{ id: string }> }) {
   try {
     const resolvedParams = await Promise.resolve(props.params);
     await connectToDatabase();
