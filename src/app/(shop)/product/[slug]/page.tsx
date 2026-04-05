@@ -11,6 +11,8 @@ import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
+import { ProductGallery } from "@/components/ProductGallery";
+
 async function ProductContent({ matchSlug }: { matchSlug: string }) {
   await connectToDatabase();
   const product = await Product.findOne({ slug: matchSlug }).lean();
@@ -24,10 +26,6 @@ async function ProductContent({ matchSlug }: { matchSlug: string }) {
     category: product.category,
     _id: { $ne: product._id }
   }).limit(4).lean();
-
-  const defaultImage = product.images && product.images.length > 0 
-      ? product.images[0] 
-      : "https://via.placeholder.com/600x800?text=No+Image";
 
   const headersList = await headers();
   const host = headersList.get('host') || 'localhost:3000';
@@ -49,26 +47,8 @@ async function ProductContent({ matchSlug }: { matchSlug: string }) {
       </Link>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-        {/* Images */}
-        <div className="space-y-4">
-          <div className="aspect-[3/4] relative rounded-xl overflow-hidden bg-gray-100">
-            <img 
-              src={defaultImage} 
-              alt={product.name} 
-              className="object-cover w-full h-full"
-            />
-          </div>
-          {/* Thumbnails (Static representation since simple image logic right now) */}
-          {(product.images && product.images.length > 1) && (
-            <div className="flex gap-2 overflow-x-auto pb-2 shrink-0">
-              {product.images.map((img: string, i: number) => (
-                <div key={i} className="w-20 h-24 relative rounded-md overflow-hidden bg-gray-100 border border-gray-200">
-                  <img src={img} alt="" className="object-cover w-full h-full" />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Gallery */}
+        <ProductGallery images={product.images || []} name={product.name} />
 
         {/* Product Details */}
         <div className="flex flex-col">
