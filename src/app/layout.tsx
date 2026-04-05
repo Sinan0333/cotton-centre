@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   description: "Premium fashion essentials for men, women, and kids.",
   manifest: "/manifest.json",
   icons: {
-    icon: "/Logo.png",
-    apple: "/Logo.png",
+    icon: "/Logo.png?v=1",
+    apple: "/Logo.png?v=1",
   },
 };
 
