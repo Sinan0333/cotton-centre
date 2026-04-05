@@ -4,6 +4,7 @@ import Link from "next/link";
 import connectToDatabase from "@/lib/mongodb";
 import Product from "@/models/Product";
 import { ProductGrid } from "@/components/ProductGrid";
+import { BannerCarousel } from "@/components/BannerCarousel";
 import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
@@ -19,22 +20,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Banner Space */}
-      <section className="bg-gray-100 py-16 md:py-24 relative overflow-hidden">
-        <div className="container px-4 md:px-6 relative z-10 flex flex-col items-center text-center">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 text-black">
-            The Cotton Center
-          </h1>
-          <p className="max-w-[600px] text-lg text-gray-600 mb-8">
-            Premium fashion essentials for men, women, and kids. Shop our latest collection today.
-          </p>
-          <Link 
-            href="/shop" 
-            className="inline-flex items-center justify-center rounded-full bg-black px-8 py-3 text-md font-medium text-white shadow-lg transition-colors hover:bg-gray-800"
-          >
-            Shop Now
-          </Link>
-        </div>
-      </section>
+      <BannerCarousel />
 
       {/* Categories Section */}
       <section className="py-12 md:py-16 bg-white">
