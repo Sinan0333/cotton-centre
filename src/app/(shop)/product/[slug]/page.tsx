@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { MessageCircle, Check, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
+import { ProductGrid } from "@/components/ProductGrid";
+import { ShareButton } from "@/components/ShareButton";
+import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
@@ -16,12 +19,28 @@ async function ProductContent({ matchSlug }: { matchSlug: string }) {
     notFound();
   }
 
+  // Fetch related items with identical category but not this item itself
+  const relatedProducts = await Product.find({
+    category: product.category,
+    _id: { $ne: product._id }
+  }).limit(4).lean();
+
   const defaultImage = product.images && product.images.length > 0 
       ? product.images[0] 
       : "https://via.placeholder.com/600x800?text=No+Image";
 
-  const message = encodeURIComponent(`Hi, I'm interested in this product: ${product.name} - $${product.price}. Can you share similar products?`);
-  const whatsappUrl = `https://wa.me/1234567890?text=${message}`;
+  const headersList = await headers();
+  const host = headersList.get('host') || 'localhost:3000';
+  const protocol = headersList.get('x-forwarded-proto') || 'http';
+  const baseUrl = `${protocol}://${host}`;
+  const productUrl = `${baseUrl}/product/${product.slug}`;
+
+  const messageText = `Hi, I'm interested in this product: ${product.name} - ₹${product.price}.\nHere is the link: ${productUrl}\n\nCan you share similar products?`;
+  const message = encodeURIComponent(messageText);
+  
+  // Use environment variable for the WhatsApp number, fallback to a placeholder
+  const whatsappNumber = process.env.WHATSAPP_NUMBER || "1234567890";
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 
   return (
     <div className="container mx-auto px-4 py-6 md:py-12 bg-white">
@@ -56,11 +75,14 @@ async function ProductContent({ matchSlug }: { matchSlug: string }) {
           <div className="mb-2 uppercase text-xs font-bold tracking-wide text-gray-500">
             {product.category}
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-2">
-            {product.name}
-          </h1>
+          <div className="flex items-start justify-between gap-4 mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+              {product.name}
+            </h1>
+            <ShareButton title={product.name} />
+          </div>
           <div className="text-2xl font-bold text-gray-900 mb-6">
-            ${product.price?.toFixed(2)}
+            ₹{product.price?.toFixed(2)}
           </div>
           
           <div className="prose prose-sm text-gray-600 mb-8 whitespace-pre-wrap">
@@ -103,7 +125,7 @@ async function ProductContent({ matchSlug }: { matchSlug: string }) {
             </div>
           </div>
 
-          <div className="mt-auto pt-6 border-t border-gray-100 flex flex-col gap-3 sticky bottom-4">
+          <div className="mt-auto pt-6 border-t border-gray-100 flex flex-col gap-3 sticky bottom-28 md:bottom-4 z-10">
             <a 
               href={whatsappUrl} 
               target="_blank" 
@@ -117,6 +139,14 @@ async function ProductContent({ matchSlug }: { matchSlug: string }) {
           </div>
         </div>
       </div>
+
+      {/* Related Products */}
+      {relatedProducts && relatedProducts.length > 0 && (
+        <div className="mt-20 border-t border-gray-100 pt-16">
+          <h2 className="text-3xl font-bold tracking-tight mb-8">Related Products</h2>
+          <ProductGrid products={JSON.parse(JSON.stringify(relatedProducts))} showControls={false} />
+        </div>
+      )}
     </div>
   );
 }

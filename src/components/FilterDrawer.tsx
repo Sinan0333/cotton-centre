@@ -44,49 +44,63 @@ export function FilterDrawer() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger className={buttonVariants({ variant: "outline", className: "flex items-center gap-2" })}>
-        <SlidersHorizontal className="h-4 w-4" />
-        <span>Filters</span>
+      <SheetTrigger className="flex items-center gap-2 bg-white border border-gray-200 shadow-sm px-6 py-3 rounded-full hover:bg-gray-50 transition-all text-sm font-semibold active:scale-95 group">
+        <SlidersHorizontal className="h-4 w-4 text-black group-hover:rotate-90 transition-transform duration-300" />
+        <span>Filter & Sort</span>
       </SheetTrigger>
-      <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto">
-        <SheetHeader>
-          <SheetTitle>Filter Products</SheetTitle>
+      <SheetContent side="right" className="w-[90vw] sm:w-[450px] overflow-y-auto bg-white/95 backdrop-blur-xl border-l border-white/20 p-8">
+        <SheetHeader className="mb-10 text-left border-b border-gray-100 pb-6">
+          <SheetTitle className="text-3xl font-extrabold tracking-tighter">Shop Filters</SheetTitle>
         </SheetHeader>
-        <div className="py-6 space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="search">Search</Label>
-            <Input 
-              id="search" 
-              placeholder="Search products..." 
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+        
+        <div className="space-y-10">
+          <div className="space-y-4">
+            <Label htmlFor="search" className="text-sm font-bold text-gray-800 tracking-wide uppercase">Search Keyword</Label>
+            <div className="relative">
+              <Input 
+                id="search" 
+                placeholder="What are you looking for?" 
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-4 pr-10 py-6 bg-gray-50 border-gray-200 rounded-xl focus-visible:ring-black focus-visible:ring-offset-0 text-base shadow-inner"
+              />
+            </div>
           </div>
           
-          <div className="space-y-2">
-            <Label>Category</Label>
-            <div className="grid grid-cols-2 gap-2">
+          <div className="space-y-4">
+            <Label className="text-sm font-bold text-gray-800 tracking-wide uppercase">Categories</Label>
+            <div className="flex flex-wrap gap-3">
               {["Men", "Women", "Kids"].map((cat) => (
-                <Button 
+                <button 
                   key={cat} 
                   type="button"
-                  variant={category === cat ? "default" : "outline"}
                   onClick={() => setCategory(category === cat ? "" : cat)}
-                  className="w-full"
+                  className={`px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
+                    category === cat 
+                      ? "bg-black text-white shadow-md scale-105" 
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
                 >
                   {cat}
-                </Button>
+                </button>
               ))}
             </div>
           </div>
         </div>
-        <div className="flex gap-4 pt-4 border-t mt-auto">
-          <Button variant="outline" className="flex-1" onClick={clearFilters}>
-            Clear
-          </Button>
-          <Button className="flex-1" onClick={applyFilters}>
-            Apply
-          </Button>
+        
+        <div className="flex gap-4 pt-10 mt-auto sticky bottom-0 bg-gradient-to-t from-white via-white to-transparent pb-6">
+          <button 
+             className="flex-1 py-4 px-6 rounded-xl border-2 border-gray-200 text-gray-800 font-bold hover:bg-gray-50 transition-colors" 
+             onClick={clearFilters}
+          >
+            Clear All
+          </button>
+          <button 
+             className="flex-1 py-4 px-6 rounded-xl bg-black text-white font-bold tracking-wide hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all" 
+             onClick={applyFilters}
+          >
+            Show Results
+          </button>
         </div>
       </SheetContent>
     </Sheet>

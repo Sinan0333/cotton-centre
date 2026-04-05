@@ -129,7 +129,7 @@ export function ProductForm({ product }: { product?: Partial<IProduct> & { _id?:
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="price">Price ($) *</Label>
+              <Label htmlFor="price">Price (₹) *</Label>
               <Input id="price" name="price" type="number" step="0.01" min="0" value={formData.price} onChange={handleChange} required />
             </div>
             <div className="space-y-2">

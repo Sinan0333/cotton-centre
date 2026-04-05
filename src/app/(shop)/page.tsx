@@ -23,34 +23,55 @@ export default function Home() {
       <BannerCarousel />
 
       {/* Categories Section */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="container px-4 md:px-6">
-          <h2 className="text-2xl font-bold tracking-tight mb-6">Shop by Category</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Link href="/shop?category=Men" className="group relative h-48 md:h-64 overflow-hidden rounded-xl bg-gray-100 items-center justify-center flex transition-transform hover:-translate-y-1 hover:shadow-lg">
-               <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors z-10"></div>
-               <span className="relative z-20 text-2xl font-bold text-gray-800 bg-white/90 px-6 py-2 rounded-full">Men</span>
+      <section className="py-20 md:py-28 bg-white selection:bg-black selection:text-white">
+        <div className="container px-4 md:px-8 mx-auto">
+          <div className="flex flex-col items-center mb-12 text-center">
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">Explore Collections</h2>
+            <div className="w-16 h-1 bg-black rounded-full mb-4"></div>
+            <p className="text-gray-500 max-w-xl text-lg font-light">Find exactly what you're looking for by browsing through our expertly curated collections.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <Link href="/shop?category=Men" className="group relative h-72 md:h-96 overflow-hidden rounded-3xl items-center justify-center flex shadow-md">
+               <Image src="https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=1587&auto=format&fit=crop" priority alt="Men Collection" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90 z-10"></div>
+               <div className="absolute bottom-8 left-8 z-20 flex flex-col items-start transition-transform duration-500 group-hover:-translate-y-2">
+                 <span className="text-3xl font-extrabold text-white tracking-tight mb-2">Men</span>
+                 <span className="text-sm font-medium text-white/80 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">Shop Now →</span>
+               </div>
             </Link>
-            <Link href="/shop?category=Women" className="group relative h-48 md:h-64 overflow-hidden rounded-xl bg-gray-100 items-center justify-center flex transition-transform hover:-translate-y-1 hover:shadow-lg">
-               <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors z-10"></div>
-               <span className="relative z-20 text-2xl font-bold text-gray-800 bg-white/90 px-6 py-2 rounded-full">Women</span>
+            <Link href="/shop?category=Women" className="group relative h-72 md:h-96 overflow-hidden rounded-3xl items-center justify-center flex shadow-md">
+               <Image src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1740&auto=format&fit=crop" priority alt="Women Collection" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90 z-10"></div>
+               <div className="absolute bottom-8 left-8 z-20 flex flex-col items-start transition-transform duration-500 group-hover:-translate-y-2">
+                 <span className="text-3xl font-extrabold text-white tracking-tight mb-2">Women</span>
+                 <span className="text-sm font-medium text-white/80 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">Shop Now →</span>
+               </div>
             </Link>
-            <Link href="/shop?category=Kids" className="group relative h-48 md:h-64 overflow-hidden rounded-xl bg-gray-100 items-center justify-center flex transition-transform hover:-translate-y-1 hover:shadow-lg">
-               <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors z-10"></div>
-               <span className="relative z-20 text-2xl font-bold text-gray-800 bg-white/90 px-6 py-2 rounded-full">Kids</span>
+            <Link href="/shop?category=Kids" className="group relative h-72 md:h-96 overflow-hidden rounded-3xl items-center justify-center flex shadow-md">
+               <Image src="https://images.unsplash.com/photo-1519241047957-be31d7379a5d?q=80&w=1740&auto=format&fit=crop" priority alt="Kids Collection" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90 z-10"></div>
+               <div className="absolute bottom-8 left-8 z-20 flex flex-col items-start transition-transform duration-500 group-hover:-translate-y-2">
+                 <span className="text-3xl font-extrabold text-white tracking-tight mb-2">Kids</span>
+                 <span className="text-sm font-medium text-white/80 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">Shop Now →</span>
+               </div>
             </Link>
           </div>
         </div>
       </section>
       
       {/* Latest Products Placeholder */}
-      <section className="py-12 md:py-16 bg-gray-50 flex-1">
-        <div className="container px-4 md:px-6">
-          <div className="flex justify-between items-center mb-6">
-             <h2 className="text-2xl font-bold tracking-tight">Latest Arrivals</h2>
-             <Link href="/shop" className="text-sm font-medium hover:underline text-gray-600">View All</Link>
+      <section className="py-20 md:py-28 bg-gray-50 flex-1">
+        <div className="container px-4 md:px-8 mx-auto">
+          <div className="flex flex-col items-center mb-12 text-center">
+             <div className="inline-flex items-center rounded-full bg-black/5 px-3 py-1 text-sm font-medium text-black mb-4 tracking-widest uppercase">
+               New Drop
+             </div>
+             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-6">Latest Arrivals</h2>
+             <Link href="/shop" className="text-sm font-bold border-b-2 border-black pb-1 hover:text-gray-600 hover:border-gray-600 transition-colors">
+               Explore Full Collection
+             </Link>
           </div>
-          <Suspense fallback={<div className="text-sm text-gray-500 text-center py-12">Loading latest products...</div>}>
+          <Suspense fallback={<div className="text-sm text-gray-500 text-center py-24 animate-pulse">Curating latest pieces...</div>}>
             <LatestProducts />
           </Suspense>
         </div>

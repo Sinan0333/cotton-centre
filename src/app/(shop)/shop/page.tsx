@@ -22,20 +22,33 @@ async function ShopContent({ searchParams }: { searchParams: { [key: string]: st
   const products = await Product.find(query).sort({ createdAt: -1 }).lean();
 
   return (
-    <div className="container px-4 md:px-6 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">
+    <div className="container px-4 md:px-8 py-12 mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 pb-8 border-b border-gray-200 gap-6">
+        <div className="max-w-2xl">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-3">
             {category ? `${category} Collection` : "All Products"}
           </h1>
-          <p className="text-gray-500 mt-1">Showing {products.length} products</p>
-        </div>
-        <div className="w-full md:w-auto flex justify-end">
-          <FilterDrawer />
+          <p className="text-lg text-gray-500 font-light">
+            {q ? `Search results for "${q}"` : "Discover our complete range of premium clothing designed and crafted for your everyday style."}
+          </p>
+          <div className="mt-4 inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-600">
+            {products.length} {products.length === 1 ? 'Product' : 'Products'} available
+          </div>
         </div>
       </div>
       
-      <ProductGrid products={JSON.parse(JSON.stringify(products))} />
+      {products.length > 0 ? (
+        <ProductGrid 
+           products={JSON.parse(JSON.stringify(products))} 
+           showControls={true} 
+           filterControls={<FilterDrawer />}
+        />
+      ) : (
+        <div className="py-24 flex flex-col items-center justify-center text-center">
+           <h3 className="text-2xl font-bold tracking-tight mb-2">No products found</h3>
+           <p className="text-gray-500">We couldn't find anything matching your current filters.</p>
+        </div>
+      )}
     </div>
   );
 }

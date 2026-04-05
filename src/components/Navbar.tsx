@@ -1,82 +1,107 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingBag, Search, Menu } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { buttonVariants } from "@/components/ui/button";
+import { ShoppingBag, Search, User, Home, Shirt, Sparkles, Baby } from "lucide-react";
 import { useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { InstallButton } from "./InstallButton";
 
-export function Navbar() {
+export function Navbar({ isAdmin = false }: { isAdmin?: boolean }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+
+  const navLinks = [
+    { label: "Shop All", href: "/shop", isShopAll: true },
+    { label: "Men", href: "/shop?category=Men", checkCategory: "Men" },
+    { label: "Women", href: "/shop?category=Women", checkCategory: "Women" },
+    { label: "Kids", href: "/shop?category=Kids", checkCategory: "Kids" },
+  ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
-      <div className="container mx-auto flex h-16 items-center flex-row px-4 md:px-6">
-        
-        {/* Mobile Menu */}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger className={buttonVariants({ variant: "ghost", size: "icon", className: "md:hidden mr-2" })}>
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle mobile menu</span>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-            <SheetHeader>
-              <SheetTitle className="text-left font-bold text-xl">Categories</SheetTitle>
-            </SheetHeader>
-            <div className="flex flex-col space-y-4 mt-8">
-              <Link href="/shop" onClick={() => setOpen(false)} className="text-lg font-medium hover:text-black/70">
-                All Products
-              </Link>
-              <Link href="/shop?category=Men" onClick={() => setOpen(false)} className="text-lg font-medium hover:text-black/70">
-                Men
-              </Link>
-              <Link href="/shop?category=Women" onClick={() => setOpen(false)} className="text-lg font-medium hover:text-black/70">
-                Women
-              </Link>
-              <Link href="/shop?category=Kids" onClick={() => setOpen(false)} className="text-lg font-medium hover:text-black/70">
-                Kids
-              </Link>
-            </div>
-          </SheetContent>
-        </Sheet>
+    <>
+      <nav className="sticky top-0 z-50 w-full border-b border-white/20 bg-white/70 backdrop-blur-xl transition-all duration-300 header-glass">
+        <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-8">
+          
+          <div className="flex items-center">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="bg-black text-white p-2 rounded-xl group-hover:scale-105 transition-transform duration-300 shadow-md hidden sm:block">
+                <ShoppingBag className="h-5 w-5" />
+              </div>
+              <span className="font-extrabold text-2xl tracking-tighter hidden sm:inline-block">The Cotton Center</span>
+              <span className="font-extrabold text-2xl tracking-tighter sm:hidden">CC.</span>
+            </Link>
+          </div>
 
-        <div className="flex-1 shrink-0 md:flex-none">
-          <Link href="/" className="flex items-center gap-2">
-            <ShoppingBag className="h-6 w-6" />
-            <span className="font-bold text-xl tracking-tight hidden sm:inline-block">Cotton Center</span>
-            <span className="font-bold text-xl tracking-tight sm:hidden">CC</span>
-          </Link>
-        </div>
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-1 pl-10 pr-10">
+            {navLinks.map((link) => {
+              const isActive = (link.isShopAll && pathname === '/shop' && !category) || (link.checkCategory && category === link.checkCategory);
+              return (
+                <Link 
+                  key={link.href}
+                  href={link.href} 
+                  className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 hover:bg-gray-100/80 ${isActive ? 'text-black font-semibold bg-gray-100' : 'text-gray-600 hover:text-black'}`}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
+          </div>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex ml-8 flex-1 space-x-6">
-          <Link href="/shop" className="text-sm font-medium transition-colors hover:text-black/70">
-            Shop All
-          </Link>
-          <Link href="/shop?category=Men" className="text-sm font-medium transition-colors hover:text-black/70">
-            Men
-          </Link>
-          <Link href="/shop?category=Women" className="text-sm font-medium transition-colors hover:text-black/70">
-            Women
-          </Link>
-          <Link href="/shop?category=Kids" className="text-sm font-medium transition-colors hover:text-black/70">
-            Kids
-          </Link>
+          {/* Right Actions */}
+          <div className="flex items-center gap-2">
+            <InstallButton />
+            <Link href="/shop" className="p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors hover:text-black hidden md:block">
+              <Search className="h-5 w-5" />
+              <span className="sr-only">Search</span>
+            </Link>
+            {isAdmin && (
+              <Link href="/admin" className="p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors hover:text-black hidden md:block">
+                <User className="h-5 w-5" />
+                <span className="sr-only">Admin</span>
+              </Link>
+            )}
+          </div>
         </div>
+      </nav>
 
-        <div className="flex items-center ml-auto">
-          <Link href="/shop" className={buttonVariants({ variant: "ghost", size: "icon" })}>
-            <Search className="h-5 w-5" />
-            <span className="sr-only">Search</span>
-          </Link>
-        </div>
+      {/* Mobile Bottom Navigation */}
+      <div className="md:hidden fixed bottom-6 left-4 right-4 z-50 bg-white/90 backdrop-blur-xl border border-gray-200/50 shadow-2xl rounded-3xl p-2 flex justify-around items-center">
+         <Link href="/" className={`flex flex-col items-center justify-center p-2 rounded-2xl w-16 h-14 transition-colors ${pathname === '/' ? 'bg-black text-white shadow-md' : 'text-gray-500 hover:text-black hover:bg-gray-100'}`}>
+           <Home className="mb-1 h-5 w-5" />
+           <span className="text-[10px] font-bold tracking-tight">Home</span>
+         </Link>
+         
+         <Link href="/shop" className={`flex flex-col items-center justify-center p-2 rounded-2xl w-16 h-14 transition-colors ${(pathname === '/shop' && !category) ? 'bg-black text-white shadow-md' : 'text-gray-500 hover:text-black hover:bg-gray-100'}`}>
+           <ShoppingBag className="mb-1 h-5 w-5" />
+           <span className="text-[10px] font-bold tracking-tight">Shop</span>
+         </Link>
+
+         <Link href="/shop?category=Men" className={`flex flex-col items-center justify-center p-2 rounded-2xl w-16 h-14 transition-colors ${(pathname === '/shop' && category === 'Men') ? 'bg-black text-white shadow-md' : 'text-gray-500 hover:text-black hover:bg-gray-100'}`}>
+           <Shirt className="mb-1 h-5 w-5" />
+           <span className="text-[10px] font-bold tracking-tight">Men</span>
+         </Link>
+
+         <Link href="/shop?category=Women" className={`flex flex-col items-center justify-center p-2 rounded-2xl w-16 h-14 transition-colors ${(pathname === '/shop' && category === 'Women') ? 'bg-black text-white shadow-md' : 'text-gray-500 hover:text-black hover:bg-gray-100'}`}>
+           <Sparkles className="mb-1 h-5 w-5" />
+           <span className="text-[10px] font-bold tracking-tight">Women</span>
+         </Link>
+
+         <Link href="/shop?category=Kids" className={`flex flex-col items-center justify-center p-2 rounded-2xl w-16 h-14 transition-colors ${(pathname === '/shop' && category === 'Kids') ? 'bg-black text-white shadow-md' : 'text-gray-500 hover:text-black hover:bg-gray-100'}`}>
+           <Baby className="mb-1 h-5 w-5" />
+           <span className="text-[10px] font-bold tracking-tight">Kids</span>
+         </Link>
+         
+         {isAdmin && (
+           <Link href="/admin" className={`flex flex-col items-center justify-center p-2 rounded-2xl w-16 h-14 transition-colors ${pathname.startsWith('/admin') ? 'bg-black text-white shadow-md' : 'text-gray-500 hover:text-black hover:bg-gray-100'}`}>
+             <User className="mb-1 h-5 w-5" />
+             <span className="text-[10px] font-bold tracking-tight">Admin</span>
+           </Link>
+         )}
       </div>
-    </nav>
+    </>
   );
 }

@@ -1,51 +1,62 @@
 import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 
-
 export function Footer() {
   return (
-    <footer className="bg-gray-50 border-t py-12 mt-auto">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-4">
-            <div className="font-bold text-xl tracking-tight">Cotton Center</div>
-            <p className="text-sm text-gray-500">
-              Premium fashion for men, women, and kids. Mobile-first shopping experience designed for your perfect fit.
+    <footer className="bg-black text-white py-16 mt-auto border-t border-white/10">
+      <div className="container mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div className="space-y-6">
+            <div className="font-extrabold text-2xl tracking-tighter">The Cotton Center</div>
+            <p className="text-sm text-gray-400 font-light leading-relaxed">
+              Premium fashion essentials designed for the modern wardrobe. Bringing you unmatched comfort and style everyday.
             </p>
+            <div className="flex gap-4 text-sm font-bold tracking-widest">
+               <a href="#" className="py-2 px-3 bg-white/5 rounded-full hover:bg-white hover:text-black transition-colors">IN</a>
+               <a href="#" className="py-2 px-3 bg-white/5 rounded-full hover:bg-white hover:text-black transition-colors">TW</a>
+               <a href="#" className="py-2 px-3 bg-white/5 rounded-full hover:bg-white hover:text-black transition-colors">FB</a>
+            </div>
           </div>
-          <div className="space-y-4">
-            <h4 className="font-medium text-sm">Shop</h4>
-            <ul className="space-y-2 text-sm text-gray-500">
-              <li><Link href="/shop" className="hover:text-black">All Products</Link></li>
-              <li><Link href="/shop?category=Men" className="hover:text-black">Men</Link></li>
-              <li><Link href="/shop?category=Women" className="hover:text-black">Women</Link></li>
-              <li><Link href="/shop?category=Kids" className="hover:text-black">Kids</Link></li>
+          <div className="space-y-6">
+            <h4 className="font-bold text-lg tracking-tight">Shop</h4>
+            <ul className="space-y-3 text-sm font-medium text-gray-400">
+              <li><Link href="/shop" className="hover:text-white transition-colors relative group"><span className="absolute -left-4 opacity-0 group-hover:opacity-100 transition-all">→</span> All Products</Link></li>
+              <li><Link href="/shop?category=Men" className="hover:text-white transition-colors relative group"><span className="absolute -left-4 opacity-0 group-hover:opacity-100 transition-all">→</span> Men's Collection</Link></li>
+              <li><Link href="/shop?category=Women" className="hover:text-white transition-colors relative group"><span className="absolute -left-4 opacity-0 group-hover:opacity-100 transition-all">→</span> Women's Collection</Link></li>
+              <li><Link href="/shop?category=Kids" className="hover:text-white transition-colors relative group"><span className="absolute -left-4 opacity-0 group-hover:opacity-100 transition-all">→</span> Kids & Baby</Link></li>
             </ul>
           </div>
-          <div className="space-y-4">
-            <h4 className="font-medium text-sm">Quick Links</h4>
-            <ul className="space-y-2 text-sm text-gray-500">
-              <li><Link href="#" className="hover:text-black">About Us</Link></li>
-              <li><Link href="#" className="hover:text-black">Contact</Link></li>
-              <li><Link href="#" className="hover:text-black">FAQ</Link></li>
-              <li><Link href="#" className="hover:text-black">Shipping & Returns</Link></li>
+          <div className="space-y-6">
+            <h4 className="font-bold text-lg tracking-tight">Support</h4>
+            <ul className="space-y-3 text-sm font-medium text-gray-400">
+              <li><Link href="#" className="hover:text-white transition-colors">About Us</Link></li>
+              <li><Link href="#" className="hover:text-white transition-colors">Contact</Link></li>
+              <li><Link href="#" className="hover:text-white transition-colors">FAQ</Link></li>
+              <li><Link href="#" className="hover:text-white transition-colors">Shipping & Returns</Link></li>
             </ul>
           </div>
-          <div className="space-y-4">
-            <h4 className="font-medium text-sm">Need Help?</h4>
-            <a 
-              href="https://wa.me/1234567890" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 border border-gray-200 bg-white hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium"
-            >
-              <MessageCircle className="h-4 w-4" />
-              Contact on WhatsApp
-            </a>
+          <div className="space-y-6">
+            <h4 className="font-bold text-lg tracking-tight">Need Help?</h4>
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 flex flex-col gap-4">
+              <p className="text-sm text-gray-400">We are here to assist you with any questions or styling advice.</p>
+              <a 
+                href="https://wa.me/1234567890" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-200 px-4 py-3 rounded-xl text-sm font-bold transition-transform hover:scale-105"
+              >
+                <MessageCircle className="h-5 w-5" />
+                Chat on WhatsApp
+              </a>
+            </div>
           </div>
         </div>
-        <div className="mt-12 pt-8 border-t text-center text-sm text-gray-400">
-          <p>© {new Date().getFullYear()} Cotton Center. All rights reserved.</p>
+        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 font-medium">
+          <p>© {new Date().getFullYear()} The Cotton Center. All rights reserved.</p>
+          <div className="flex gap-4 mt-4 md:mt-0">
+             <Link href="#" className="hover:text-white">Privacy Policy</Link>
+             <Link href="#" className="hover:text-white">Terms of Service</Link>
+          </div>
         </div>
       </div>
     </footer>
