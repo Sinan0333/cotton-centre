@@ -6,6 +6,7 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+const FOLDER = process.env.CLOUDINARY_FOLDER;
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,19 +22,22 @@ export async function POST(request: NextRequest) {
 
     const result = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
-        { folder: "cotton-center" },
+        { folder: `${FOLDER}/products` },
         (error, result) => {
           if (error) reject(error);
           else resolve(result);
-        }
+        },
       );
-      
+
       uploadStream.end(buffer);
     });
 
     return NextResponse.json(result);
   } catch (error: any) {
     console.error("Cloudinary upload error:", error);
-    return NextResponse.json({ error: "Failed to upload image" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to upload image" },
+      { status: 500 },
+    );
   }
 }
