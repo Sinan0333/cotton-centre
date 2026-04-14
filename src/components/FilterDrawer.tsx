@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CATEGORIES } from "@/lib/constants";
+import { CATEGORY_STRUCTURE } from "@/lib/constants";
 
 export function FilterDrawer() {
   const router = useRouter();
@@ -23,14 +23,20 @@ export function FilterDrawer() {
   
   const currentCategory = searchParams.get("category") || "";
   const currentSearch = searchParams.get("q") || "";
+  const currentMinPrice = searchParams.get("minPrice") || "";
+  const currentMaxPrice = searchParams.get("maxPrice") || "";
 
   const [category, setCategory] = useState(currentCategory);
   const [search, setSearch] = useState(currentSearch);
+  const [minPrice, setMinPrice] = useState(currentMinPrice);
+  const [maxPrice, setMaxPrice] = useState(currentMaxPrice);
 
   const applyFilters = () => {
     const params = new URLSearchParams();
     if (category) params.set("category", category);
     if (search) params.set("q", search);
+    if (minPrice) params.set("minPrice", minPrice);
+    if (maxPrice) params.set("maxPrice", maxPrice);
     
     router.push(`/shop?${params.toString()}`);
     setOpen(false);
@@ -39,6 +45,8 @@ export function FilterDrawer() {
   const clearFilters = () => {
     setCategory("");
     setSearch("");
+    setMinPrice("");
+    setMaxPrice("");
     router.push(`/shop`);
     setOpen(false);
   };
@@ -68,23 +76,62 @@ export function FilterDrawer() {
             </div>
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-8">
             <Label className="text-sm font-bold text-gray-800 tracking-wide uppercase">Categories</Label>
-            <div className="flex flex-wrap gap-3">
-              {CATEGORIES.map((cat) => (
-                <button 
-                   key={cat.value} 
-                   type="button"
-                   onClick={() => setCategory(category === cat.value ? "" : cat.value)}
-                   className={`px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
-                     category === cat.value 
-                       ? "bg-black text-white shadow-md scale-105" 
-                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                   }`}
-                >
-                  {cat.label}
-                </button>
+            <div className="space-y-6">
+              {CATEGORY_STRUCTURE.map((mainCat) => (
+                <div key={mainCat.value} className="space-y-3">
+                  <button
+                    type="button"
+                    onClick={() => setCategory(category === mainCat.value ? "" : mainCat.value)}
+                    className={`text-lg font-extrabold tracking-tight transition-colors hover:text-black ${
+                      category === mainCat.value ? "text-black underline underline-offset-4 decoration-2" : "text-gray-400"
+                    }`}
+                  >
+                    {mainCat.label}
+                  </button>
+                  <div className="flex flex-wrap gap-2">
+                    {mainCat.subcategories.map((sub) => (
+                      <button
+                        key={sub.value}
+                        type="button"
+                        onClick={() => setCategory(category === sub.value ? "" : sub.value)}
+                        className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
+                          category === sub.value
+                            ? "bg-black text-white shadow-md scale-105"
+                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        }`}
+                      >
+                        {sub.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               ))}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <Label className="text-sm font-bold text-gray-800 tracking-wide uppercase">Price Range</Label>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Input 
+                  type="number" 
+                  placeholder="Min" 
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                  className="py-6 bg-gray-50 border-gray-200 rounded-xl focus-visible:ring-black focus-visible:ring-offset-0 text-base shadow-inner"
+                />
+              </div>
+              <div className="space-y-2">
+                <Input 
+                  type="number" 
+                  placeholder="Max" 
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  className="py-6 bg-gray-50 border-gray-200 rounded-xl focus-visible:ring-black focus-visible:ring-offset-0 text-base shadow-inner"
+                />
+              </div>
             </div>
           </div>
         </div>

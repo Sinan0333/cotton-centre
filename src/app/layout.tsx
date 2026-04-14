@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Cotton Centre | Premium Clothing",
-  description: "Premium fashion essentials for men, women, and kids.",
+  title: "The Cotton Centre | Premier Clothing Shop in Chundambatta",
+  description: "Discover budget-friendly, readymade clothes for men, women, and kids at The Cotton Centre in Chundambatta. Shop daily wear, local, and premium clothing.",
+  keywords: ["Chundambatta", "textiles", "readymade clothes", "budget-friendly", "daily wear", "premium clothes", "men", "women", "kids", "The Cotton Centre"],
   manifest: "/manifest.json",
   icons: {
     icon: "/Logo.png?v=1",

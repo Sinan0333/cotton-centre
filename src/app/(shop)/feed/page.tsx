@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function FeedPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 py-20 text-center">
+    <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 py-20 text-center w-full relative overflow-x-hidden">
       <div className="relative mb-8">
         {/* Animated Glow Effect */}
         <div className="absolute inset-0 bg-black/10 blur-3xl rounded-full scale-150 animate-pulse"></div>
@@ -21,15 +21,14 @@ export default function FeedPage() {
       </h1>
 
       <p className="text-gray-500 max-w-lg text-lg md:text-xl font-light mb-12 leading-relaxed">
-        We're building a vibrant space to explore the latest fashion trends, 
-        style stories, and exclusive previews. Stay tuned for a curated 
+        We're building a vibrant space to explore the latest fashion trends,
+        style stories, and exclusive previews. Stay tuned for a curated
         experience designed for the modern enthusiast.
       </p>
 
-      <Link 
+      <Link
         href="/"
-        className="inline-flex items-center gap-2 group px-8 py-4 bg-black text-white rounded-full font-bold transition-all shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95"
-      >
+        className="inline-flex items-center gap-2 group px-8 py-4 bg-black text-white rounded-full font-bold transition-all shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95">
         <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-transform" />
         Return Home
       </Link>

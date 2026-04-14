@@ -9,18 +9,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { IProduct } from "@/models/Product";
 import { Card, CardContent } from "@/components/ui/card";
 import { X, ImagePlus, Loader2 } from "lucide-react";
-import { CATEGORIES } from "@/lib/constants";
+import { CATEGORY_STRUCTURE } from "@/lib/constants";
 
-export function ProductForm({ product }: { product?: Partial<IProduct> & { _id?: string } }) {
+export function ProductForm({
+  product,
+}: {
+  product?: Partial<IProduct> & { _id?: string };
+}) {
   const router = useRouter();
   const isEditing = !!product;
-  
+
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: product?.name || "",
     description: product?.description || "",
     price: product?.price?.toString() || "",
-    category: product?.category || CATEGORIES[0].value,
+    category: product?.category || CATEGORY_STRUCTURE[0].subcategories[0].value,
     stock: product?.stock?.toString() || "0",
     sizes: product?.sizes?.join(", ") || "",
     colors: product?.colors?.join(", ") || "",
@@ -29,26 +33,30 @@ export function ProductForm({ product }: { product?: Partial<IProduct> & { _id?:
 
   const [isUploadingImage, setIsUploadingImage] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
-    
+
     setIsUploadingImage(true);
     try {
       const uploadData = new FormData();
       uploadData.append("file", file);
-      
+
       const res = await fetch("/api/upload", {
         method: "POST",
         body: uploadData,
       });
-      
+
       if (!res.ok) throw new Error("Failed to upload image");
-      
+
       const data = await res.json();
       setFormData((prev) => ({
         ...prev,
@@ -58,7 +66,7 @@ export function ProductForm({ product }: { product?: Partial<IProduct> & { _id?:
       alert("Error uploading image");
     } finally {
       setIsUploadingImage(false);
-      e.target.value = ''; // Reset input
+      e.target.value = ""; // Reset input
     }
   };
 
@@ -76,14 +84,20 @@ export function ProductForm({ product }: { product?: Partial<IProduct> & { _id?:
       ...formData,
       price: parseFloat(formData.price as string),
       stock: parseInt(formData.stock as string, 10),
-      sizes: formData.sizes.split(",").map(s => s.trim()).filter(Boolean),
-      colors: formData.colors.split(",").map(c => c.trim()).filter(Boolean),
+      sizes: formData.sizes
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean),
+      colors: formData.colors
+        .split(",")
+        .map((c) => c.trim())
+        .filter(Boolean),
     };
 
     try {
       const url = isEditing ? `/api/products/${product._id}` : "/api/products";
       const method = isEditing ? "PUT" : "POST";
-      
+
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
@@ -111,76 +125,134 @@ export function ProductForm({ product }: { product?: Partial<IProduct> & { _id?:
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label htmlFor="name">Product Name *</Label>
-              <Input id="name" name="name" value={formData.name} onChange={handleChange} required />
+              <Input
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="category">Category *</Label>
-              <select 
-                id="category" 
-                name="category" 
-                value={formData.category} 
+              <select
+                id="category"
+                name="category"
+                value={formData.category}
                 onChange={handleChange}
                 className="flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
-                required
-              >
-                {CATEGORIES.map((cat) => (
-                  <option key={cat.value} value={cat.value}>{cat.label}</option>
+                required>
+                {CATEGORY_STRUCTURE.map((mainCat) => (
+                  <optgroup key={mainCat.value} label={mainCat.label}>
+                    {mainCat.subcategories.map((sub) => (
+                      <option key={sub.value} value={sub.value}>
+                        {sub.label}
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="price">Price (₹) *</Label>
-              <Input id="price" name="price" type="number" step="1" min="0" value={formData.price} onChange={handleChange} required />
+              <Input
+                id="price"
+                name="price"
+                type="number"
+                step="1"
+                min="0"
+                value={formData.price}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="stock">Stock Count *</Label>
-              <Input id="stock" name="stock" type="number" min="0" value={formData.stock} onChange={handleChange} required />
+              <Input
+                id="stock"
+                name="stock"
+                type="number"
+                min="0"
+                value={formData.stock}
+                onChange={handleChange}
+                required
+              />
             </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="description">Description</Label>
-            <Textarea id="description" name="description" rows={4} value={formData.description} onChange={handleChange} />
+            <Textarea
+              id="description"
+              name="description"
+              rows={4}
+              value={formData.description}
+              onChange={handleChange}
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label htmlFor="sizes">Sizes (comma separated)</Label>
-              <Input id="sizes" name="sizes" placeholder="S, M, L, XL" value={formData.sizes} onChange={handleChange} />
+              <Input
+                id="sizes"
+                name="sizes"
+                placeholder="S, M, L, XL"
+                value={formData.sizes}
+                onChange={handleChange}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="colors">Colors (comma separated)</Label>
-              <Input id="colors" name="colors" placeholder="Red, Blue, Green" value={formData.colors} onChange={handleChange} />
+              <Input
+                id="colors"
+                name="colors"
+                placeholder="Red, Blue, Green"
+                value={formData.colors}
+                onChange={handleChange}
+              />
             </div>
           </div>
 
           {/* Cloudinary File Upload */}
           <div className="space-y-4 border p-4 rounded-md bg-gray-50/50">
             <div>
-              <Label htmlFor="image-upload" className="mb-2 block">Upload Product Images</Label>
+              <Label htmlFor="image-upload" className="mb-2 block">
+                Upload Product Images
+              </Label>
               <div className="flex items-center gap-4">
-                <Input 
-                  id="image-upload" 
-                  type="file" 
+                <Input
+                  id="image-upload"
+                  type="file"
                   accept="image/*"
                   onChange={handleFileUpload}
                   disabled={isUploadingImage}
                   className="cursor-pointer file:text-white file:border-0 file:bg-black file:rounded-md file:px-4 file:py-1 file:font-semibold hover:file:bg-black/80 file:mr-4 file:transition-colors bg-white max-w-sm"
                 />
-                {isUploadingImage && <div className="text-sm text-gray-500 flex items-center"><Loader2 className="h-4 w-4 animate-spin mr-2"/> Uploading...</div>}
+                {isUploadingImage && (
+                  <div className="text-sm text-gray-500 flex items-center">
+                    <Loader2 className="h-4 w-4 animate-spin mr-2" />{" "}
+                    Uploading...
+                  </div>
+                )}
               </div>
             </div>
-            
+
             <div className="flex flex-wrap gap-4 pt-4 border-t">
               {formData.images.map((img, idx) => (
-                <div key={idx} className="relative w-24 h-24 border rounded overflow-hidden group">
-                  <img src={img} alt="preview" className="object-cover w-full h-full" />
-                  <button 
-                    type="button" 
+                <div
+                  key={idx}
+                  className="relative w-24 h-24 border rounded overflow-hidden group">
+                  <img
+                    src={img}
+                    alt="preview"
+                    className="object-cover w-full h-full"
+                  />
+                  <button
+                    type="button"
                     onClick={() => handleRemoveImage(idx)}
-                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
+                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     <X className="h-3 w-3" />
                   </button>
                 </div>
@@ -192,13 +264,19 @@ export function ProductForm({ product }: { product?: Partial<IProduct> & { _id?:
               )}
             </div>
             <p className="text-xs text-gray-500 mt-2">
-               Images are securely uploaded and stored dynamically via Cloudinary.
+              Images are securely uploaded and stored dynamically via
+              Cloudinary.
             </p>
           </div>
 
           <div className="flex justify-end gap-4 pt-4 border-t">
-            <Button type="button" variant="outline" onClick={() => router.back()}>Cancel</Button>
-            <Button type="submit" disabled={loading}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => router.back()}>
+              Cancel
+            </Button>
+            <Button type="submit" disabled={loading || isUploadingImage}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {isEditing ? "Update Product" : "Save Product"}
             </Button>

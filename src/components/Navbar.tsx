@@ -132,7 +132,7 @@ export function Navbar({ isAdmin = false }: { isAdmin?: boolean }) {
 
         <Link
           href="/shop"
-          className={`flex flex-col items-center justify-center p-2 rounded-2xl w-16 h-14 transition-colors ${pathname === "/shop" && !category ? "bg-black text-white shadow-md" : "text-gray-500 hover:text-black hover:bg-gray-100"}`}>
+          className={`flex flex-col items-center justify-center p-2 rounded-2xl w-16 h-14 transition-colors ${pathname === "/shop" ? "bg-black text-white shadow-md" : "text-gray-500 hover:text-black hover:bg-gray-100"}`}>
           <ShoppingBag className="mb-1 h-5 w-5" />
           <span className="text-[10px] font-bold tracking-tight">Shop</span>
         </Link>

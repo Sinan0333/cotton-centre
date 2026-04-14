@@ -34,8 +34,7 @@ export default function Home() {
             </h2>
             <div className="w-16 h-1 bg-black rounded-full mb-4"></div>
             <p className="text-gray-500 max-w-xl text-lg font-light">
-              Find exactly what you're looking for by browsing through our
-              expertly curated collections.
+              Find exactly what you're looking for with our budget-friendly readymade clothes for men, women, and kids. From daily wear and local favorites to premium clothing, we offer the best styles at unbeatable prices.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
