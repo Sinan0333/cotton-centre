@@ -12,11 +12,11 @@ export function ShareButton({ title }: ShareButtonProps) {
 
   const handleShare = async () => {
     const url = window.location.href;
-    
+
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `Check out ${title} at The Cotton Centre`,
+          title: `Check out ${title} at  Cotton Centre`,
           url: url,
         });
       } catch (err) {
@@ -36,16 +36,15 @@ export function ShareButton({ title }: ShareButtonProps) {
   };
 
   return (
-    <button 
+    <button
       onClick={handleShare}
       className={`p-2 rounded-full border transition-all ${
-        copied 
-          ? "bg-green-50 border-green-200 text-green-600" 
+        copied
+          ? "bg-green-50 border-green-200 text-green-600"
           : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-black"
       }`}
       aria-label="Share product"
-      title="Share"
-    >
+      title="Share">
       <Share2 className="h-5 w-5" />
       {copied && (
         <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded-md shadow-lg whitespace-nowrap animate-in fade-in slide-in-from-bottom-2">

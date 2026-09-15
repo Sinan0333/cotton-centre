@@ -14,21 +14,27 @@ export const dynamic = "force-dynamic";
 import { Metadata } from "next";
 import { ProductGallery } from "@/components/ProductGallery";
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
   await connectToDatabase();
   const product = await Product.findOne({ slug: resolvedParams.slug }).lean();
 
   if (!product) {
     return {
-      title: "Product Not Found | The Cotton Centre",
-      description: "The requested product could not be found."
+      title: "Product Not Found |  Cotton Centre",
+      description: "The requested product could not be found.",
     };
   }
 
   return {
-    title: `${product.name} | The Cotton Centre`,
-    description: product.description ? product.description.substring(0, 160) : `Buy ${product.name} at The Cotton Centre. Budget-friendly readymade clothes for your everyday style.`,
+    title: `${product.name} |  Cotton Centre`,
+    description: product.description
+      ? product.description.substring(0, 160)
+      : `Buy ${product.name} at  Cotton Centre. Budget-friendly readymade clothes for your everyday style.`,
   };
 }
 

@@ -128,7 +128,7 @@ export function Footer() {
         </div>
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 font-medium">
           <p>
-            © {new Date().getFullYear()} The Cotton Centre. All rights reserved.
+            © {new Date().getFullYear()} Cotton Centre. All rights reserved.
           </p>
           <div className="flex gap-4 mt-4 md:mt-0">
             <Link href="#" className="hover:text-white">
