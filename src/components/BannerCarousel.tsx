@@ -84,6 +84,8 @@ export function BannerCarousel() {
                 alt={slide.title}
                 fill
                 priority={index === 0}
+                fetchPriority={index === 0 ? "high" : undefined}
+                sizes="(max-width: 768px) 100vw, 100vw"
                 className="object-cover opacity-60 mix-blend-overlay"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 z-10" />

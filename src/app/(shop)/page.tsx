@@ -7,7 +7,7 @@ import { ProductGrid } from "@/components/ProductGrid";
 import { BannerCarousel } from "@/components/BannerCarousel";
 import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 async function LatestProducts() {
   await connectToDatabase();
@@ -65,9 +65,9 @@ export default function Home() {
               className="group relative h-72 md:h-96 overflow-hidden rounded-3xl items-center justify-center flex shadow-[0_20px_50px_rgba(0,0,0,0.2)] uppercase">
               <Image
                 src="/male.png"
-                priority
                 alt="Men Collection"
                 fill
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90 z-10"></div>
@@ -85,9 +85,9 @@ export default function Home() {
               className="group relative h-72 md:h-96 overflow-hidden rounded-3xl items-center justify-center flex shadow-[0_20px_50px_rgba(0,0,0,0.2)] uppercase">
               <Image
                 src="/women.png"
-                priority
                 alt="Women Collection"
                 fill
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90 z-10"></div>
@@ -105,9 +105,9 @@ export default function Home() {
               className="group relative h-72 md:h-96 overflow-hidden rounded-3xl items-center justify-center flex shadow-[0_20px_50px_rgba(0,0,0,0.2)] uppercase">
               <Image
                 src="/kid.png"
-                priority
                 alt="Kids Collection"
                 fill
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90 z-10"></div>

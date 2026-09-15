@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MessageCircle } from "lucide-react";
 
 export function Footer() {
@@ -8,9 +9,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="/Logo.png"
                 alt="Cotton Centre Logo"
+                width={32}
+                height={32}
                 className="h-8 w-8 object-contain brightness-0 invert"
               />
               <div className="font-extrabold text-2xl tracking-tighter">

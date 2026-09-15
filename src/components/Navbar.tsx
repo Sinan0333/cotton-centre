@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   ShoppingBag,
@@ -59,9 +60,12 @@ export function Navbar({ isAdmin = false }: { isAdmin?: boolean }) {
           <div className="flex items-center">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <img
+              <Image
                 src="/Logo.png"
-                alt=" Cotton Centre Logo"
+                alt="Cotton Centre Logo"
+                width={40}
+                height={40}
+                priority
                 className="h-10 w-10 object-contain group-hover:scale-105 transition-transform duration-300"
               />
               <span className="font-extrabold text-xl md:text-2xl tracking-tighter">

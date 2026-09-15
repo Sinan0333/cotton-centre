@@ -6,12 +6,14 @@ import { Analytics } from "@vercel/analytics/react";
 const outfitFont = Outfit({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
