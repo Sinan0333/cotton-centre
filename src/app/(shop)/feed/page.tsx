@@ -1,6 +1,15 @@
 import { LayoutGrid, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
+export const metadata = {
+  title: "The Cotton Feed - Coming Soon | Cotton Centre",
+  description:
+    "Stay tuned for The Cotton Feed. A space to explore the latest fashion trends, style stories, and exclusive previews from Cotton Centre.",
+  alternates: {
+    canonical: "/feed",
+  },
+};
+
 export default function FeedPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 py-20 text-center w-full relative overflow-x-hidden">

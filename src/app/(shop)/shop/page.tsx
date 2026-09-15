@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { permanentRedirect } from "next/navigation";
 import connectToDatabase from "@/lib/mongodb";
 import Product from "@/models/Product";
 import { ProductGrid } from "@/components/ProductGrid";
@@ -7,6 +8,12 @@ import { CATEGORY_STRUCTURE } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  alternates: {
+    canonical: "/shop",
+  },
+};
+
 async function ShopContent({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   await connectToDatabase();
   
@@ -14,6 +21,18 @@ async function ShopContent({ searchParams }: { searchParams: { [key: string]: st
   const resolvedParams = await Promise.resolve(searchParams);
   
   const category = typeof resolvedParams.category === 'string' ? resolvedParams.category : undefined;
+
+  const mainCategories = ["Men", "Women", "Kids"];
+  if (category && mainCategories.includes(category)) {
+    const params = new URLSearchParams();
+    for (const [key, val] of Object.entries(resolvedParams)) {
+      if (key !== "category" && val !== undefined && val !== null) {
+        params.append(key, Array.isArray(val) ? val[0] : val);
+      }
+    }
+    const queryString = params.toString();
+    permanentRedirect(`/shop/${category.toLowerCase()}${queryString ? `?${queryString}` : ""}`);
+  }
   const q = typeof resolvedParams.q === 'string' ? resolvedParams.q : undefined;
   const minPrice = typeof resolvedParams.minPrice === 'string' ? resolvedParams.minPrice : undefined;
   const maxPrice = typeof resolvedParams.maxPrice === 'string' ? resolvedParams.maxPrice : undefined;

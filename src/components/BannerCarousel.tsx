@@ -12,7 +12,7 @@ const slides = [
     title: "Summer Collection 2026",
     description: "Discover the latest trends in comfort and style.",
     cta: "Shop Summer",
-    link: "/shop?category=Summer",
+    link: "/shop",
     image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2070&auto=format&fit=crop",
   },
   {
@@ -28,7 +28,7 @@ const slides = [
     title: "Kids Collection",
     description: "Comfortable and durable clothing for the little ones.",
     cta: "Shop Kids",
-    link: "/shop?category=Kids",
+    link: "/shop/kids",
     image: "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?q=80&w=2070&auto=format&fit=crop",
   }
 ];
@@ -75,7 +75,7 @@ export function BannerCarousel() {
   return (
     <div className="relative w-full overflow-hidden bg-gray-900 group" ref={emblaRef}>
       <div className="flex touch-pan-y">
-        {slides.map((slide) => (
+        {slides.map((slide, index) => (
           <div key={slide.id} className="relative min-w-full flex-none h-[60vh] md:h-[80vh] flex items-center justify-center">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
@@ -83,7 +83,7 @@ export function BannerCarousel() {
                 src={slide.image}
                 alt={slide.title}
                 fill
-                priority
+                priority={index === 0}
                 className="object-cover opacity-60 mix-blend-overlay"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 z-10" />

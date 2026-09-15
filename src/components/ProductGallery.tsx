@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface ProductGalleryProps {
   images: string[];
@@ -14,10 +15,12 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
   if (!images || images.length === 0) {
     return (
       <div className="aspect-[3/4] relative rounded-xl overflow-hidden bg-gray-100">
-        <img 
+        <Image 
           src="https://via.placeholder.com/600x800?text=No+Image" 
           alt={name} 
-          className="object-cover w-full h-full"
+          fill
+          unoptimized
+          className="object-cover"
         />
       </div>
     );
@@ -27,10 +30,13 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
     <div className="flex flex-col gap-4">
       {/* Main Image */}
       <div className="aspect-[3/4] relative rounded-3xl overflow-hidden bg-gray-100 shadow-sm border border-gray-100 group">
-        <img 
+        <Image 
           src={activeImage} 
           alt={name} 
-          className="object-cover w-full h-full transition-all duration-700 group-hover:scale-105"
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover transition-all duration-700 group-hover:scale-105"
         />
       </div>
 
@@ -48,7 +54,13 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
                   : "border-transparent opacity-70 hover:opacity-100 hover:scale-105"
               )}
             >
-              <img src={img} alt={`${name} view ${i + 1}`} className="object-cover w-full h-full" />
+              <Image 
+                src={img} 
+                alt={`${name} view ${i + 1}`} 
+                fill
+                sizes="80px"
+                className="object-cover"
+              />
             </button>
           ))}
         </div>

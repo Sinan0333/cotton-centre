@@ -15,20 +15,39 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cotton Centre | Premier Clothing Shop in Chundambatta",
+  metadataBase: new URL("https://cottoncentre.in"),
+  alternates: {
+    canonical: "/",
+  },
+  title: "Cotton Centre | Family Clothing Store in Vilayur & Chundambatta",
   description:
-    "Discover budget-friendly, readymade clothes for men, women, and kids at  Cotton Centre in Chundambatta. Shop daily wear, local, and premium clothing.",
+    "Shop affordable readymade clothing for women, men, and kids at Cotton Centre, a local family clothing store in Vilayur near Chundambatta, Kerala.",
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    siteName: "Cotton Centre",
+    title: "Cotton Centre | Family Clothing Store in Vilayur & Chundambatta",
+    description:
+      "Shop affordable readymade clothing for women, men, and kids at Cotton Centre, a local family clothing store in Vilayur near Chundambatta, Kerala.",
+    url: "https://cottoncentre.in/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cotton Centre | Family Clothing Store in Vilayur & Chundambatta",
+    description:
+      "Shop affordable readymade clothing for women, men, and kids at Cotton Centre, a local family clothing store in Vilayur near Chundambatta, Kerala.",
+  },
   keywords: [
     "Chundambatta",
     "textiles",
     "readymade clothes",
     "budget-friendly",
     "daily wear",
-    "premium clothes",
+    "Churidar",
     "men",
     "women",
     "kids",
-    " Cotton Centre",
+    "Cotton Centre",
   ],
   manifest: "/manifest.json",
   icons: {
@@ -45,7 +64,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfitFont.variable} ${geistMono.variable} h-full antialiased`}>
+      className={`${outfitFont.variable} ${geistMono.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col font-sans">
         {children}
         <Analytics />

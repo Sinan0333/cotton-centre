@@ -47,8 +47,8 @@ export function Navbar({ isAdmin = false }: { isAdmin?: boolean }) {
     { label: "Feed", href: "/feed", isFeed: true },
     {
       label: "Contact",
-      href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`,
-      isExternal: true,
+      href: "/contact",
+      isExternal: false,
     },
   ];
 
@@ -145,9 +145,7 @@ export function Navbar({ isAdmin = false }: { isAdmin?: boolean }) {
         </Link>
 
         <Link
-          href="https://wa.me/917736930520"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/contact"
           className="flex flex-col items-center justify-center p-2 rounded-2xl w-16 h-14 transition-colors text-gray-500 hover:text-black hover:bg-gray-100">
           <MessageCircle className="mb-1 h-5 w-5" />
           <span className="text-[10px] font-bold tracking-tight">Contact</span>

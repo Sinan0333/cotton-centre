@@ -12,12 +12,13 @@ export function ProductCard({ product }: { product: Partial<IProduct> & { _id?: 
   return (
     <Card className="group overflow-hidden rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-xl h-full flex flex-col bg-white">
       <div className="relative aspect-[4/5] overflow-hidden bg-gray-50">
-        <Link href={`/product/${product.slug}`} className="block h-full w-full">
-          {/* We use a standard img tag with object-cover here or Next Info. Replace with next/image later if hostname is configured */}
-          <img
+        <Link href={`/product/${product.slug}`} className="relative block h-full w-full">
+          <Image
             src={imageUrl}
-            alt={product.name || "Product"}
-            className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+            alt={product.name || "Cotton Centre Product"}
+            fill
+            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
         </Link>
         <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 text-xs font-bold tracking-wide rounded-full text-gray-800 shadow-sm">

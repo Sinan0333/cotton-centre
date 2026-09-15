@@ -33,12 +33,24 @@ export function FilterDrawer() {
 
   const applyFilters = () => {
     const params = new URLSearchParams();
-    if (category) params.set("category", category);
+    
     if (search) params.set("q", search);
     if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);
     
-    router.push(`/shop?${params.toString()}`);
+    const mainCategories = ["Men", "Women", "Kids"];
+    let basePath = "/shop";
+    
+    if (category) {
+      if (mainCategories.includes(category)) {
+        basePath = `/shop/${category.toLowerCase()}`;
+      } else {
+        params.set("category", category);
+      }
+    }
+    
+    const queryString = params.toString();
+    router.push(`${basePath}${queryString ? `?${queryString}` : ''}`);
     setOpen(false);
   };
 
