@@ -1,21 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 
 import connectToDatabase from "@/lib/mongodb";
 import Product from "@/models/Product";
 import { ProductGrid } from "@/components/ProductGrid";
+import { BannerCarousel } from "@/components/BannerCarousel";
 import { Suspense } from "react";
-
-const BannerCarousel = dynamic(
-  () => import("@/components/BannerCarousel").then((mod) => mod.BannerCarousel),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-[60vh] md:h-[80vh] bg-gray-900 animate-pulse" />
-    ),
-  }
-);
 
 export const revalidate = 60;
 
@@ -66,7 +56,10 @@ export default function Home() {
             </h1>
             <div className="w-16 h-1 bg-black rounded-full mb-4"></div>
             <p className="text-gray-500 max-w-xl text-lg font-light">
-              Find exactly what you're looking for with our budget-friendly readymade clothes for men, women, and kids. From daily wear and local favorites to premium clothing, we offer the best styles at unbeatable prices.
+              Find exactly what you're looking for with our budget-friendly
+              readymade clothes for men, women, and kids. From daily wear and
+              local favorites to premium clothing, we offer the best styles at
+              unbeatable prices.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">

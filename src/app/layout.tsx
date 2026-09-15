@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import dynamic from "next/dynamic";
-
-const Analytics = dynamic(() => import("@vercel/analytics/react").then((mod) => mod.Analytics), { ssr: false });
+import { Analytics } from "@vercel/analytics/react";
 
 const outfitFont = Outfit({
   variable: "--font-sans",
@@ -68,8 +66,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfitFont.variable} ${geistMono.variable} h-full antialiased`}
-    >
+      className={`${outfitFont.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
         {children}
         <Analytics />
