@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MessageCircle } from "lucide-react";
 
 export function Footer() {
@@ -8,18 +9,22 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="/Logo.png"
-                alt="Logo"
+                alt="Cotton Centre Logo"
+                width={32}
+                height={32}
                 className="h-8 w-8 object-contain brightness-0 invert"
               />
               <div className="font-extrabold text-2xl tracking-tighter">
                 Cotton Centre
               </div>
             </div>
-            <p className="text-sm text-gray-400 font-light leading-relaxed">
-              Premium fashion essentials designed for the modern wardrobe.
-              Bringing you unmatched comfort and style everyday.
+            <p className="text-sm text-gray-400 font-light leading-relaxed mb-2">
+              Your local family clothing store in Chundambatta, Vilayur, Kerala 679337.
+            </p>
+            <p className="text-sm text-gray-400 font-light">
+              Call us: +91 70344 51562
             </p>
             <div className="flex gap-4 text-sm font-bold tracking-widest">
               <a
@@ -54,7 +59,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/shop?category=Men"
+                  href="/shop/men"
                   className="hover:text-white transition-colors relative group">
                   <span className="absolute -left-4 opacity-0 group-hover:opacity-100 transition-all">
                     →
@@ -64,7 +69,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/shop?category=Women"
+                  href="/shop/women"
                   className="hover:text-white transition-colors relative group">
                   <span className="absolute -left-4 opacity-0 group-hover:opacity-100 transition-all">
                     →
@@ -74,7 +79,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/shop?category=Kids"
+                  href="/shop/kids"
                   className="hover:text-white transition-colors relative group">
                   <span className="absolute -left-4 opacity-0 group-hover:opacity-100 transition-all">
                     →
@@ -93,7 +98,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <Link href="/contact" className="hover:text-white transition-colors">
                   Contact
                 </Link>
               </li>
@@ -115,20 +120,22 @@ export function Footer() {
               <p className="text-sm text-gray-400">
                 We are here to assist you with any questions or styling advice.
               </p>
-              <a
-                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-200 px-4 py-3 rounded-xl text-sm font-bold transition-transform hover:scale-105">
-                <MessageCircle className="h-5 w-5" />
-                Chat on WhatsApp
-              </a>
+              {process.env.NEXT_PUBLIC_WHATSAPP_NUMBER && (
+                <a
+                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-200 px-4 py-3 rounded-xl text-sm font-bold transition-transform hover:scale-105">
+                  <MessageCircle className="h-5 w-5" />
+                  Chat on WhatsApp
+                </a>
+              )}
             </div>
           </div>
         </div>
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 font-medium">
           <p>
-            © {new Date().getFullYear()} The Cotton Centre. All rights reserved.
+            © {new Date().getFullYear()} Cotton Centre. All rights reserved.
           </p>
           <div className="flex gap-4 mt-4 md:mt-0">
             <Link href="#" className="hover:text-white">

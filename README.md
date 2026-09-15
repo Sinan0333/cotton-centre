@@ -1,4 +1,4 @@
-# The Cotton Centre - Fashion E-commerce
+# Cotton Centre - Fashion E-commerce
 
 A mobile-first, light-mode only, full-stack fashion e-commerce application built with Next.js App Router, Tailwind CSS, Shadcn UI, and MongoDB.
 
@@ -58,12 +58,12 @@ To quickly populate the store with demo products (Men, Women, Kids), visit the f
 
 `http://localhost:3000/api/seed`
 
-*(Note: This deletes any existing products in the DB and restocks it with the defaults.)*
+_(Note: This deletes any existing products in the DB and restocks it with the defaults.)_
 
 ### 5. Access Admin Panel
 
 Navigate to `http://localhost:3000/admin`. You will be redirected to `/admin/login`.
-Enter the password matching the `ADMIN_PASSWORD` in your environment (default: `admin` if unset). 
+Enter the password matching the `ADMIN_PASSWORD` in your environment (default: `admin` if unset).
 
 ## Architecture & Code Structure
 

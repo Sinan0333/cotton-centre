@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   ShoppingBag,
@@ -47,8 +48,8 @@ export function Navbar({ isAdmin = false }: { isAdmin?: boolean }) {
     { label: "Feed", href: "/feed", isFeed: true },
     {
       label: "Contact",
-      href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`,
-      isExternal: true,
+      href: "/contact",
+      isExternal: false,
     },
   ];
 
@@ -59,9 +60,12 @@ export function Navbar({ isAdmin = false }: { isAdmin?: boolean }) {
           <div className="flex items-center">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <img
+              <Image
                 src="/Logo.png"
-                alt="The Cotton Centre Logo"
+                alt="Cotton Centre Logo"
+                width={40}
+                height={40}
+                priority
                 className="h-10 w-10 object-contain group-hover:scale-105 transition-transform duration-300"
               />
               <span className="font-extrabold text-xl md:text-2xl tracking-tighter">
@@ -145,9 +149,7 @@ export function Navbar({ isAdmin = false }: { isAdmin?: boolean }) {
         </Link>
 
         <Link
-          href="https://wa.me/917736930520"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/contact"
           className="flex flex-col items-center justify-center p-2 rounded-2xl w-16 h-14 transition-colors text-gray-500 hover:text-black hover:bg-gray-100">
           <MessageCircle className="mb-1 h-5 w-5" />
           <span className="text-[10px] font-bold tracking-tight">Contact</span>

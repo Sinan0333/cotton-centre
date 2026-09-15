@@ -7,7 +7,7 @@ import { ProductGrid } from "@/components/ProductGrid";
 import { BannerCarousel } from "@/components/BannerCarousel";
 import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 async function LatestProducts() {
   await connectToDatabase();
@@ -20,18 +20,40 @@ async function LatestProducts() {
 }
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ClothingStore",
+    name: "Cotton Centre",
+    image: "https://cottoncentre.in/Logo.png",
+    logo: "https://cottoncentre.in/Logo.png",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Chundambatta",
+      addressLocality: "Vilayur",
+      addressRegion: "Kerala",
+      postalCode: "679337",
+      addressCountry: "IN",
+    },
+    telephone: "+917034451562",
+    url: "https://cottoncentre.in",
+    openingHours: "Mo-Su 09:00-21:00",
+  };
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Banner Space */}
       <BannerCarousel />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       {/* Categories Section */}
       <section className="py-20 md:py-28 bg-white selection:bg-black selection:text-white">
         <div className="container px-4 md:px-8 mx-auto">
           <div className="flex flex-col items-center mb-12 text-center">
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">
-              Explore Collections
-            </h2>
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">
+              Affordable Family Clothing in Vilayur & Chundambatta
+            </h1>
             <div className="w-16 h-1 bg-black rounded-full mb-4"></div>
             <p className="text-gray-500 max-w-xl text-lg font-light">
               Find exactly what you're looking for with our budget-friendly readymade clothes for men, women, and kids. From daily wear and local favorites to premium clothing, we offer the best styles at unbeatable prices.
@@ -39,13 +61,13 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <Link
-              href="/shop?category=Men"
+              href="/shop/men"
               className="group relative h-72 md:h-96 overflow-hidden rounded-3xl items-center justify-center flex shadow-[0_20px_50px_rgba(0,0,0,0.2)] uppercase">
               <Image
                 src="/male.png"
-                priority
                 alt="Men Collection"
                 fill
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90 z-10"></div>
@@ -59,13 +81,13 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/shop?category=Women"
+              href="/shop/women"
               className="group relative h-72 md:h-96 overflow-hidden rounded-3xl items-center justify-center flex shadow-[0_20px_50px_rgba(0,0,0,0.2)] uppercase">
               <Image
                 src="/women.png"
-                priority
                 alt="Women Collection"
                 fill
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90 z-10"></div>
@@ -79,13 +101,13 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/shop?category=Kids"
+              href="/shop/kids"
               className="group relative h-72 md:h-96 overflow-hidden rounded-3xl items-center justify-center flex shadow-[0_20px_50px_rgba(0,0,0,0.2)] uppercase">
               <Image
                 src="/kid.png"
-                priority
                 alt="Kids Collection"
                 fill
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90 z-10"></div>
