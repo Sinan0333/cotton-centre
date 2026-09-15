@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Outfit, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/react";
+import dynamic from "next/dynamic";
+
+const Analytics = dynamic(() => import("@vercel/analytics/react").then((mod) => mod.Analytics), { ssr: false });
 
 const outfitFont = Outfit({
   variable: "--font-sans",

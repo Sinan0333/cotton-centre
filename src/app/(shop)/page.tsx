@@ -1,11 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
 import connectToDatabase from "@/lib/mongodb";
 import Product from "@/models/Product";
 import { ProductGrid } from "@/components/ProductGrid";
-import { BannerCarousel } from "@/components/BannerCarousel";
 import { Suspense } from "react";
+
+const BannerCarousel = dynamic(
+  () => import("@/components/BannerCarousel").then((mod) => mod.BannerCarousel),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[60vh] md:h-[80vh] bg-gray-900 animate-pulse" />
+    ),
+  }
+);
 
 export const revalidate = 60;
 
